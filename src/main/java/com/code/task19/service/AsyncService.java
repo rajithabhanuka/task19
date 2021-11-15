@@ -1,6 +1,5 @@
 package com.code.task19.service;
 
-import com.code.task19.dto.C1OutDto;
 import com.code.task19.dto.C2OutDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -16,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 public class AsyncService {
 
     @Async("asyncExecutor")
-    public CompletableFuture<String> getC1Ouput() throws InterruptedException {
+    public CompletableFuture<Object> getC1Ouput() throws InterruptedException {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -27,13 +26,8 @@ public class AsyncService {
 
         log.info("getC1Ouput starts");
 
-        ResponseEntity<String> c1OutDtoResponseEntity = restTemplate.exchange("http://localhost:8080/mock/c1", HttpMethod.GET, entity, String.class);
-
-        C1OutDto c1OutDto = null;
-
-        if (c1OutDtoResponseEntity != null) {
-//            c1OutDto = c1OutDtoResponseEntity.getBody();
-        }
+        ResponseEntity<?> c1OutDtoResponseEntity = restTemplate.exchange("http://localhost:8080/mock/c1",
+                HttpMethod.GET, entity, Object.class);
 
         Thread.sleep(1000L);
         log.info("getC1Ouput completed");
@@ -42,7 +36,7 @@ public class AsyncService {
     }
 
     @Async("asyncExecutor")
-    public CompletableFuture<String> getC2Ouput() throws InterruptedException {
+    public CompletableFuture<Object> getC2Ouput() throws InterruptedException {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -53,7 +47,8 @@ public class AsyncService {
 
         log.info("getC2Ouput starts");
 
-        ResponseEntity<String> c2OutDtoResponseEntity = restTemplate.exchange("http://localhost:8080/mock/c2", HttpMethod.GET, entity, String.class);
+        ResponseEntity<?> c2OutDtoResponseEntity = restTemplate.exchange("http://localhost:8080/mock/c2",
+                HttpMethod.GET, entity, Object.class);
 
         C2OutDto c2OutDto = null;
 
