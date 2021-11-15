@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 public class AsyncService {
 
     @Async("asyncExecutor")
-    public CompletableFuture<C1OutDto> getC1Ouput() throws InterruptedException {
+    public CompletableFuture<String> getC1Ouput() throws InterruptedException {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -27,24 +27,22 @@ public class AsyncService {
 
         log.info("getC1Ouput starts");
 
-        ResponseEntity<C1OutDto> c1OutDtoResponseEntity = restTemplate.exchange("http://localhost:8080/mock/c1", HttpMethod.GET, entity, C1OutDto.class);
+        ResponseEntity<String> c1OutDtoResponseEntity = restTemplate.exchange("http://localhost:8080/mock/c1", HttpMethod.GET, entity, String.class);
 
         C1OutDto c1OutDto = null;
 
         if (c1OutDtoResponseEntity != null) {
-            c1OutDto = c1OutDtoResponseEntity.getBody();
+//            c1OutDto = c1OutDtoResponseEntity.getBody();
         }
-
-        // .(url2,HttpMethod.GET,entity,object.class);
 
         Thread.sleep(1000L);
         log.info("getC1Ouput completed");
 
-        return CompletableFuture.completedFuture(c1OutDto);
+        return CompletableFuture.completedFuture(c1OutDtoResponseEntity.getBody());
     }
 
     @Async("asyncExecutor")
-    public CompletableFuture<C2OutDto> getC2Ouput() throws InterruptedException {
+    public CompletableFuture<String> getC2Ouput() throws InterruptedException {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -55,17 +53,17 @@ public class AsyncService {
 
         log.info("getC2Ouput starts");
 
-        ResponseEntity<C2OutDto> c2OutDtoResponseEntity = restTemplate.exchange("http://localhost:8080/mock/c2", HttpMethod.GET, entity, C2OutDto.class);
+        ResponseEntity<String> c2OutDtoResponseEntity = restTemplate.exchange("http://localhost:8080/mock/c2", HttpMethod.GET, entity, String.class);
 
         C2OutDto c2OutDto = null;
 
-        if (c2OutDtoResponseEntity != null) {
-            c2OutDto = c2OutDtoResponseEntity.getBody();
-        }
+//        if (c2OutDtoResponseEntity != null) {
+//            c2OutDto = c2OutDtoResponseEntity.getBody();
+//        }
 
         Thread.sleep(1000L);
         log.info("getC2Ouput completed");
 
-        return CompletableFuture.completedFuture(c2OutDto);
+        return CompletableFuture.completedFuture(c2OutDtoResponseEntity.getBody());
     }
 }
