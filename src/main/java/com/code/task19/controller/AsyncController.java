@@ -33,7 +33,8 @@ public class AsyncController {
     private AsyncService asyncService;
 
     @GetMapping(value = "/test")
-    public ResponseEntity<Object> testAsynch() throws InterruptedException, ExecutionException, JsonProcessingException {
+    public ResponseEntity<Object> testAsync() throws InterruptedException, ExecutionException {
+
         CompletableFuture<Object> c1Ouput = asyncService.getC1Ouput();
         CompletableFuture<Object> c2Ouput = asyncService.getC2Ouput();
 
@@ -41,20 +42,6 @@ public class AsyncController {
 
         Map c1 = (HashMap) c1Ouput.get();
         Map c2 = (HashMap) c2Ouput.get();
-
-//        ObjectMapper mapper = new ObjectMapper();
-
-//        JsonNode actualObj1 = mapper.readTree(c1.toString());
-//        JsonNode actualObj2 = mapper.readTree(c2.toString());
-
-//        Stream combined = Stream.concat(c1.entrySet().stream(), c2.entrySet().stream());
-//
-//        Map<String, String> result = combined.collect(
-//                Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("actions",actualObj1);
-//        map.put("operations",actualObj2);
 
         c1.putAll(c2);
 

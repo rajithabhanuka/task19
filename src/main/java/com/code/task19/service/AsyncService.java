@@ -52,10 +52,6 @@ public class AsyncService {
 
         C2OutDto c2OutDto = null;
 
-//        if (c2OutDtoResponseEntity != null) {
-//            c2OutDto = c2OutDtoResponseEntity.getBody();
-//        }
-
         Thread.sleep(1000L);
         log.info("getC2Ouput completed");
 
